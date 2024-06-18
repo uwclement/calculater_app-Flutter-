@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Calculator',
-      theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 18, 57, 142)),
+      theme: ThemeData.dark().copyWith(
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 18, 57, 142)),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Calculator'),
@@ -78,13 +78,23 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Widget _buildButton(String value) {
+  Widget _buildButton(String value, {Color color = Colors.white}) {
     return Expanded(
-      child: OutlinedButton(
-        onPressed: () => _buttonPressed(value),
-        child: Text(
-          value,
-          style: const TextStyle(fontSize: 24),
+      child: Container(
+        margin: const EdgeInsets.all(4),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(20),
+            backgroundColor: Color.fromARGB(255, 36, 42, 57),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          onPressed: () => _buttonPressed(value),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 24, color: color),
+          ),
         ),
       ),
     );
@@ -94,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Color.fromARGB(255, 21, 82, 112),
         title: Text(widget.title),
       ),
       body: Column(
@@ -103,13 +113,16 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             padding: const EdgeInsets.all(20),
             alignment: Alignment.centerRight,
-            height: 100,
+            height: 120,
             child: Text(
               _output,
-              style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
           ),
-          const Divider(),
+          const Divider(color: Colors.white),
           Column(
             children: [
               Row(
@@ -117,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   _buildButton("7"),
                   _buildButton("8"),
                   _buildButton("9"),
-                  _buildButton("/"),
+                  _buildButton("/", color: Colors.orange),
                 ],
               ),
               Row(
@@ -125,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   _buildButton("4"),
                   _buildButton("5"),
                   _buildButton("6"),
-                  _buildButton("*"),
+                  _buildButton("*", color: Colors.orange),
                 ],
               ),
               Row(
@@ -133,15 +146,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   _buildButton("1"),
                   _buildButton("2"),
                   _buildButton("3"),
-                  _buildButton("-"),
+                  _buildButton("-", color: Colors.orange),
                 ],
               ),
               Row(
                 children: <Widget>[
                   _buildButton("0"),
-                  _buildButton("C"),
-                  _buildButton("="),
-                  _buildButton("+"),
+                  _buildButton("C", color: Colors.red),
+                  _buildButton("=", color: Colors.green),
+                  _buildButton("+", color: Colors.orange),
                 ],
               ),
             ],
